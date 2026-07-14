@@ -1,25 +1,31 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-    unordered_map<char,int> f,g;
-    int low=0,n=s.size(),m=t.size();
-    int have=0,need=0;
-    int resLen=INT_MAX,resLow=0;
-    for(int i=0;i<m;i++) g[t[i]]++;
-    need=g.size();
+    unordered_map <char,int>f;
+    unordered_map <char,int>g;
+    int low=0,n=s.size(),m=t.size(),len,res=INT_MAX,match=0,v;
+    for(int i=0;i<m;i++){
+        g[t[i]]++;
+    }
     for(int high=0;high<n;high++){
         f[s[high]]++;
-        if(g.count(s[high]) && f[s[high]]==g[s[high]]) have++;
-        while(have==need){
-            if(high-low+1<resLen){
-                resLen=high-low+1;
-                resLow=low;
+        if (g.count(s[high]) && f[s[high]] == g[s[high]]) {
+            match++;
+            while(match==g.size()){   
+            len=high-low+1;
+            if(len<res){
+                res=len;
+                v=low;
+            }
+            if(g.count(s[low]) && f[s[low]]==g[s[low]]){
+                match--;
             }
             f[s[low]]--;
-            if(g.count(s[low]) && f[s[low]]<g[s[low]]) have--;
             low++;
+            }
         }
     }
-    return resLen==INT_MAX ? "" : s.substr(resLow,resLen);
+    if (res == INT_MAX) return "";
+    return s.substr(v, res);    
     }
 };
