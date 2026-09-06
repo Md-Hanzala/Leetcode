@@ -8,11 +8,9 @@ public:
             int mid = low + (high - low) / 2;
 
             if (nums[mid] > nums[high]) {
-                // Minimum is on the right side
                 low = mid + 1;
             }
             else {
-                // Minimum is at mid or on the left side
                 high = mid;
             }
         }
