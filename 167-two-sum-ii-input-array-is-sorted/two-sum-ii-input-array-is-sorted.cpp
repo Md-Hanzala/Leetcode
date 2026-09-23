@@ -1,17 +1,20 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& numbers, int target) {
-        int index1=0;
-        int index2=numbers.size()-1;
-    while(index2>index1){
-    if(numbers[index1]+numbers[index2]==target){
-    return {index1 + 1, index2 + 1};
+        int n = numbers.size();
+        int low=0,high=n-1;
+        int res[2]={-1,-1};
+        while(low<high){
+            if(numbers[low]+numbers[high]>target){
+                high--;
+            }else if(numbers[low]+numbers[high]<target){
+                low++;
+            }else{
+                res[0]={low+1};
+                res[1]={high+1};
+                break;
+            }
+        }
+        return {res[0],res[1]};
     }
-    if(numbers[index1]+numbers[index2]>target)
-    index2--;
-    else if(numbers[index1]+numbers[index2]<target)
-    index1++;
-};
-return {};
-};
 };
