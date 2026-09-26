@@ -2,31 +2,32 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         int n = nums.size();
+        vector<vector<int>> arr;
+        if (n < 3)
+            return arr;
         sort(nums.begin(), nums.end());
-        vector<vector<int>> result;
-        for (int i = 0; i < n - 2; i++) {
-            if (i > 0 && nums[i] == nums[i - 1])
+        for (int low = 0; low < n - 2; low++) {
+            if (low > 0 && nums[low] == nums[low - 1])
                 continue;
-
-            int left = i + 1, right = n - 1;
-            int target = -nums[i];
-            while (left < right) {
-                int sum = nums[left] + nums[right];
-                if (sum == target) {
-                    result.push_back({nums[i], nums[left], nums[right]});
-                    left++;
-                    right--;
-                    while (left < right && nums[left] == nums[left - 1])
-                        left++;
-                    while (left < right && nums[right] == nums[right + 1])
-                        right--;
+            int mid = low + 1;
+            int high = n - 1;
+            while (mid < high) {
+                int sum = nums[low] + nums[mid] + nums[high];
+                if (sum == 0) {
+                    arr.push_back({nums[low],nums[mid],nums[high]});
+                    while (mid < high && nums[mid] == nums[mid + 1])
+                        mid++;
+                    while (mid < high && nums[high] == nums[high - 1])
+                        high--;
+                    mid++;
+                    high--;
+                }else if (sum < 0) {
+                    mid++;
+                }else {
+                    high--;
                 }
-                else if (sum < target)
-                    left++;
-                else
-                    right--;
             }
         }
-        return result;
+        return arr;
     }
 };
