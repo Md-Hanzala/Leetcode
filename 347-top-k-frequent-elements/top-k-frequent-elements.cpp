@@ -12,11 +12,11 @@ public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         int n = nums.size();
         unordered_map<int, int> f;
-        priority_queue<pair<int,int>, vector<pair<int,int>>, cmp> pq;
         vector<int> res;
         for(int i = 0; i < n; i++) {
             f[nums[i]]++;
         }
+        priority_queue<pair<int,int>, vector<pair<int,int>>, cmp> pq;
         for(auto entry : f) {
             int element = entry.first;
             int freq = entry.second;
